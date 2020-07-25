@@ -267,28 +267,31 @@ letterDict = {
 
 def printBoard(boardDict):
     line = "---"
-    blankLine = "{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}".format(line, line, line, line, line, line, line, line)
+    blankLine = "{:^3}|{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}+{:^3}|".format(" ",line, line, line, line, line, line, line, line)
     
     time.sleep(1)
     
     for x in range(20):
         print("\n")
     
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a8"], boardDict["b8"], boardDict["c8"], boardDict["d8"], boardDict["e8"], boardDict["f8"], boardDict["g8"], boardDict["h8"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a7"], boardDict["b7"], boardDict["c7"], boardDict["d7"], boardDict["e7"], boardDict["f7"], boardDict["g7"], boardDict["h7"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("8", boardDict["a8"], boardDict["b8"], boardDict["c8"], boardDict["d8"], boardDict["e8"], boardDict["f8"], boardDict["g8"], boardDict["h8"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a6"], boardDict["b6"], boardDict["c6"], boardDict["d6"], boardDict["e6"], boardDict["f6"], boardDict["g6"], boardDict["h6"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("7", boardDict["a7"], boardDict["b7"], boardDict["c7"], boardDict["d7"], boardDict["e7"], boardDict["f7"], boardDict["g7"], boardDict["h7"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a5"], boardDict["b5"], boardDict["c5"], boardDict["d5"], boardDict["e5"], boardDict["f5"], boardDict["g5"], boardDict["h5"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("6", boardDict["a6"], boardDict["b6"], boardDict["c6"], boardDict["d6"], boardDict["e6"], boardDict["f6"], boardDict["g6"], boardDict["h6"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a4"], boardDict["b4"], boardDict["c4"], boardDict["d4"], boardDict["e4"], boardDict["f4"], boardDict["g4"], boardDict["h4"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("5", boardDict["a5"], boardDict["b5"], boardDict["c5"], boardDict["d5"], boardDict["e5"], boardDict["f5"], boardDict["g5"], boardDict["h5"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a3"], boardDict["b3"], boardDict["c3"], boardDict["d3"], boardDict["e3"], boardDict["f3"], boardDict["g3"], boardDict["h3"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("4", boardDict["a4"], boardDict["b4"], boardDict["c4"], boardDict["d4"], boardDict["e4"], boardDict["f4"], boardDict["g4"], boardDict["h4"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a2"], boardDict["b2"], boardDict["c2"], boardDict["d2"], boardDict["e2"], boardDict["f2"], boardDict["g2"], boardDict["h2"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("3", boardDict["a3"], boardDict["b3"], boardDict["c3"], boardDict["d3"], boardDict["e3"], boardDict["f3"], boardDict["g3"], boardDict["h3"]))
     print(blankLine)
-    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}".format(boardDict["a1"], boardDict["b1"], boardDict["c1"], boardDict["d1"], boardDict["e1"], boardDict["f1"], boardDict["g1"], boardDict["h1"]))
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("2", boardDict["a2"], boardDict["b2"], boardDict["c2"], boardDict["d2"], boardDict["e2"], boardDict["f2"], boardDict["g2"], boardDict["h2"]))
+    print(blankLine)
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format("1", boardDict["a1"], boardDict["b1"], boardDict["c1"], boardDict["d1"], boardDict["e1"], boardDict["f1"], boardDict["g1"], boardDict["h1"]))
+    print(blankLine)
+    print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format(" ","a","b","c","d","e","f","g","h"))
     
 
 def gameSetup(boardDict, pieceDict):

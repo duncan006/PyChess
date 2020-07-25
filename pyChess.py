@@ -81,15 +81,13 @@ class piece():
                 
                 if self.firstTurn:
                     validMoves.append(f"{letterDict[currentSpace[0]]}{currentSpace[1] + 2}")
-                    self.firstTurn = False
             
             elif self.team == "black":
                 validMoves.append(f"{letterDict[currentSpace[0]]}{currentSpace[1] - 1}")
                 
                 if self.firstTurn:
                     validMoves.append(f"{letterDict[currentSpace[0]]}{currentSpace[1] - 2}")
-                    self.firstTurn = False
-                    
+            
         if newSpace in validMoves:
             return True
         else:
@@ -310,7 +308,6 @@ def updateBoard(selectedPiece, selectedMove, pieceDict, boardDict):
             del pieceDict[x]
             break
             
-    selectedPiece.currentSpace = selectedMove
     
     
     
@@ -362,7 +359,9 @@ if __name__ == "__main__":
                 if isOnBoard(selectedMove):
                     if pieceDict[selectedPieceIndex].validMove(selectedMove):
                         
+
                         updateBoard(pieceDict[selectedPieceIndex], selectedMove, pieceDict, boardDict)
+                        pieceDict[selectedPieceIndex].movePiece(selectedMove)
                         printBoard(boardDict)
                         turn = switchTurn(turn)
                     
@@ -373,4 +372,3 @@ if __name__ == "__main__":
             
         else:
             print("please select a space on the board")
-            

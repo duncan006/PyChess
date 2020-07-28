@@ -7,13 +7,15 @@ class piece():
         self.currentSpace = startSquare
         self.firstTurn = True
         
+        #Sets piece color
         if self.team == "white":
             self.icon = f"\033[1;30;47m {piece} \033[1;37;49m"
         elif self.team == "black":
             self.icon = f"\033[1;37;44m {piece} \033[1;37;49m"
         else:
             print("Invalid team")
-            
+        
+    #updates piece and changes firstTurn for pawns, and castling.
     def movePiece(self, newSpace):
         self.currentSpace = newSpace
         self.firstTurn = False
@@ -21,8 +23,12 @@ class piece():
     def validMove(self, newSpace):
         #For direction, zero is towards higher values, 
         
+        #ord turns letters into numbers. - 96 is not normalize it to a=1
         currentSpace = [ord(self.currentSpace[0]) - 96, int(self.currentSpace[1])]
         validMoves = []
+        
+        #Checks piece type, then adds all theoretically possible moves on a chessboard 8 spaces away in every direction.
+        #Best if used in with isOnBoard()
         
         if self.piece == "K":
             validMoves.append(f"{letterDict[currentSpace[0]]}{currentSpace[1] + 1}")
@@ -181,7 +187,9 @@ boardDict = {
 
 
 pieceDict = {
-
+    
+    #Create all the piece objects
+    
     "pawnW1"  : piece("white", "P", "a2"),
     "pawnW2"  : piece("white", "P", "b2"),
     "pawnW3"  : piece("white", "P", "c2"),
@@ -291,18 +299,19 @@ def printBoard(boardDict):
     print(blankLine)
     print("{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|{:^3}|".format(" ","a","b","c","d","e","f","g","h"))
     
-
+    
 def gameSetup(boardDict, pieceDict):
-    #Initializing piece objects and adding them to boardDict
+    #Grabbing all icons for pieces and placing them in their initial positions
     for x in pieceDict:
         boardDict[pieceDict[x].currentSpace] = pieceDict[x].icon
         
-
+#Updates the board dictionary, call BEFORE switching turn~~!
 def updateBoard(selectedPiece, selectedMove, pieceDict, boardDict):
     oldMove = selectedPiece.currentSpace
     boardDict[oldMove] = " "
     boardDict[selectedMove] = selectedPiece.icon
     
+    #Handles deleting 
     for x in pieceDict:
         if pieceDict[x].currentSpace == selectedPiece.currentSpace and pieceDict[x] != selectedPiece:
             del pieceDict[x]
@@ -310,13 +319,14 @@ def updateBoard(selectedPiece, selectedMove, pieceDict, boardDict):
             
     
     
-    
+#Run at the end of turn, after moves have been made. Call AFTER Update Board~~!
 def switchTurn(currentTurn):
     if currentTurn == "white":
         return "black"
     elif currentTurn == "black":
         return "white"
 
+#Checks if a space is on the board. Call during moving and selection.
 def isOnBoard(space):
     x = space[0]
     y = int(space[1])
@@ -334,41 +344,69 @@ if __name__ == "__main__":
     import time
     turn = "white"
     gameRunning = True
+    
+    #Initializes board for first time, initializes all piece objects
     gameSetup(boardDict, pieceDict)
     
+    #Consant game loop with currently no exit. Exit must happen at checkmate/stalemate.
     while gameRunning == True:
+        
+        #Prints updated board
         printBoard(boardDict)
         print("\n")
         print(f"Turn: {turn}")
+        
+        #Waits for piece select input
         selectedSpace = input("Space to move FROM: ")
+        
+        #Checks that the selected space is on the board
         if isOnBoard(selectedSpace):
         
+            #Reset variable to pass through if statement if value is not caught
             selectedPieceIndex = None
+            
+            #Setup to grab selectedPieceIndex
             for x in pieceDict:
+                #iterate through pieceDict, grabbing the current space of each piece
                 testVal = pieceDict[x].currentSpace
                 
+                #Test if the space of the piece matches the space selected
                 if testVal == selectedSpace:
+                    
+                    #if a matching value is found, catch selectedPieceIndex and close loop
                     selectedPieceIndex = x
                     break
             
+            #Eliminate and pass if selectedPieceIndex is not caught
             if selectedPieceIndex == None:
                 print("Please select a space with a piece.")
             
             elif pieceDict[selectedPieceIndex].team == turn:
+                
+                #Move to second stage of selection, ask user to select space to move to
                 selectedMove = input("Space to move TO: ")
+                
+                #Check if space selected is on the board
                 if isOnBoard(selectedMove):
+                    
+                    #Check if a move is valid, by grabbing the "selectedPieceIndex" object from the "pieceDict" dictionary and passing the selectedMove variable to teh validMove function
                     if pieceDict[selectedPieceIndex].validMove(selectedMove):
                         
 
+                        #Run the update board function to ... update the board. Passes in the particular piece that moves.
                         updateBoard(pieceDict[selectedPieceIndex], selectedMove, pieceDict, boardDict)
+                        
+                        #Update the piece object's position
                         pieceDict[selectedPieceIndex].movePiece(selectedMove)
-                        printBoard(boardDict)
+                        
+                        #Switch the turn!
                         turn = switchTurn(turn)
                     
+                    
+#Catches everything else with error messages
                     else:
                         print("Please select a valid move.")
                 else:
                     print("please select a valid move.")
-            
         else:
             print("please select a space on the board")

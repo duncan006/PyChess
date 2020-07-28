@@ -348,6 +348,25 @@ if __name__ == "__main__":
     #Initializes board for first time, initializes all piece objects
     gameSetup(boardDict, pieceDict)
     
+    #LOGIC REWRITE
+    while gameRunning == True:
+        #Print board
+        #Print info
+        #Wait for piece select input
+        #Check if there is a piece on that space
+        #get piece
+        #If yes, move onto next step. If no, reset to top of gameRunning.
+        
+        #Wait for move selection input
+        #Check if move is on the board
+        #Check if move is valid
+        #Check if the king is in check in current configuration
+        #Check if the king is in check in the theoretical configuration
+        #Check if there is already a piece there, remove it if opposite team and cancel if same team
+        #Check if pawn reached the last line of the board, if yes then promote. Promote func in piece class.
+        
+        
+    
     #Consant game loop with currently no exit. Exit must happen at checkmate/stalemate.
     while gameRunning == True:
         

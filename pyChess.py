@@ -338,6 +338,25 @@ def isOnBoard(space):
     else:
         return True
 
+    
+def SpaceToPiece(pieceDict, selectedSpace):
+    #Reset variable to pass through if statement if a viable piece is not found
+    pieceIndex = None
+            
+    #Setup to grab selectedPieceIndex
+    for x in pieceDict:
+                
+        #iterate through pieceDict, grabbing the current space of each piece
+        testSpace = pieceDict[x].currentSpace
+                
+        #Test if the space of the piece matches the space selected
+        if testSpace == selectedSpace:
+                    
+            #if a matching value is found, catch selectedPieceIndex and close loop
+            PieceIndex = x
+            break
+            
+    return selectedPieceIndex
 
 
 if __name__ == "__main__":
@@ -350,82 +369,55 @@ if __name__ == "__main__":
     
     #LOGIC REWRITE
     while gameRunning == True:
-        #Print board
-        #Print info
-        #Wait for piece select input
-        #Check if there is a piece on that space
-        #get piece
-        #If yes, move onto next step. If no, reset to top of gameRunning.
+        #Run check for king in check at the beginning of every turn. Players should have warning!
         
-        #Wait for move selection input
-        #Check if move is on the board
-        #Check if move is valid
-        #Check if the king is in check in current configuration
-        #Check if the king is in check in the theoretical configuration
-        #Check if there is already a piece there, remove it if opposite team and cancel if same team
-        #Check if pawn reached the last line of the board, if yes then promote. Promote func in piece class.
-        
-        
-    
-    #Consant game loop with currently no exit. Exit must happen at checkmate/stalemate.
-    while gameRunning == True:
-        
-        #Prints updated board
+        #Print board 
         printBoard(boardDict)
+        
+        #Print info
         print("\n")
         print(f"Turn: {turn}")
         
+        #Wait for piece select input
         #Waits for piece select input
-        selectedSpace = input("Space to move FROM: ")
+        selectedPiece = input("Select piece to move: ")
         
-        #Checks that the selected space is on the board
-        if isOnBoard(selectedSpace):
-        
-            #Reset variable to pass through if statement if value is not caught
-            selectedPieceIndex = None
-            
-            #Setup to grab selectedPieceIndex
-            for x in pieceDict:
-                #iterate through pieceDict, grabbing the current space of each piece
-                testVal = pieceDict[x].currentSpace
-                
-                #Test if the space of the piece matches the space selected
-                if testVal == selectedSpace:
-                    
-                    #if a matching value is found, catch selectedPieceIndex and close loop
-                    selectedPieceIndex = x
-                    break
-            
-            #Eliminate and pass if selectedPieceIndex is not caught
-            if selectedPieceIndex == None:
-                print("Please select a space with a piece.")
-            
-            elif pieceDict[selectedPieceIndex].team == turn:
-                
-                #Move to second stage of selection, ask user to select space to move to
-                selectedMove = input("Space to move TO: ")
-                
-                #Check if space selected is on the board
-                if isOnBoard(selectedMove):
-                    
-                    #Check if a move is valid, by grabbing the "selectedPieceIndex" object from the "pieceDict" dictionary and passing the selectedMove variable to teh validMove function
-                    if pieceDict[selectedPieceIndex].validMove(selectedMove):
-                        
+        #Check if there is a piece on that space
+        selectedPieceIndex = SpaceToPiece(pieceDict, selectedPiece)
 
-                        #Run the update board function to ... update the board. Passes in the particular piece that moves.
-                        updateBoard(pieceDict[selectedPieceIndex], selectedMove, pieceDict, boardDict)
+            
+        #Eliminate and pass if selectedPieceIndex is not caught
+        if selectedPieceIndex == None:
+            print("Please select a space with one of your pieces.")
+        
+        elif pieceDict[selectedPieceIndex].team == team:
+            #Continue Game Logic
+            
+            #Wait for move selection input
+            selectedMove = input("Select space to move to: ")
+            
+            #Check if move is on the board
+            #Check if move is valid
+            
+            if isOnBoard(selectedMove) and pieceDict[selectedPieceIndex].validMove(selectedMove):
+                
+            #Check if the king is in check in current configuration
+            #Check if the king is in check in the theoretical configuration
+            #Check if there is already a piece there, remove it if opposite team and cancel if same team
+            #Check if pawn reached the last line of the board, if yes then promote. Promote func in piece class.
+            
+                #Run the update board function to ... update the board. Passes in the particular piece that moves.
+                updateBoard(pieceDict[selectedPieceIndex], selectedMove, pieceDict, boardDict)
                         
-                        #Update the piece object's position
-                        pieceDict[selectedPieceIndex].movePiece(selectedMove)
+                #Update the piece object's position
+                pieceDict[selectedPieceIndex].movePiece(selectedMove)
                         
-                        #Switch the turn!
-                        turn = switchTurn(turn)
-                    
-                    
-#Catches everything else with error messages
-                    else:
-                        print("Please select a valid move.")
-                else:
-                    print("please select a valid move.")
+                #Switch the turn!
+                turn = switchTurn(turn)
+            
+            
         else:
-            print("please select a space on the board")
+            #Reset
+            print("Please select a valid piece!")
+        
+        

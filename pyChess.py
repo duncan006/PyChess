@@ -358,7 +358,8 @@ def SpaceToPiece(pieceDict, selectedSpace):
             
     return selectedPieceIndex
 
-isInCheck(pieceDict, team)
+#UNFINISHED
+def isInCheck(pieceDict, team):
     if team == "white":
         pieceIndex = "kingW"
     elif team == "black":
@@ -368,6 +369,10 @@ isInCheck(pieceDict, team)
     currentSpace = pieceDict[pieceIndex].currentSpace
 
     return False
+
+#UNFINISHED
+def collisionCheck():
+    pass
 
 
 if __name__ == "__main__":
@@ -401,7 +406,7 @@ if __name__ == "__main__":
         if selectedPieceIndex == None:
             print("Please select a space with one of your pieces.")
         
-        elif pieceDict[selectedPieceIndex].team == team:
+        elif pieceDict[selectedPieceIndex].team == turn:
             #Continue Game Logic
             
             #Wait for move selection input

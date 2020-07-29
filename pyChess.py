@@ -358,6 +358,17 @@ def SpaceToPiece(pieceDict, selectedSpace):
             
     return selectedPieceIndex
 
+isInCheck(pieceDict, team)
+    if team == "white":
+        pieceIndex = "kingW"
+    elif team == "black":
+        pieceIndex = "kingB"
+        
+    possibleAttacksArray = []
+    currentSpace = pieceDict[pieceIndex].currentSpace
+
+    return False
+
 
 if __name__ == "__main__":
     import time
